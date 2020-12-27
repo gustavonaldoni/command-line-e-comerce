@@ -1,9 +1,9 @@
 import mysql.connector
 import os
 
-host = os.environ.get('host','localhost')
-user = os.environ.get('user')
-password = os.environ.get('password')
+host = os.environ.get('ECOMMERCE_DB_HOST')
+user = os.environ.get('ECOMMERCE_DB_USER')
+password = os.environ.get('ECOMMERCE_DB_PASSWORD')
 database = 'ecommerce_db'
 
 class MySQLConnector:
