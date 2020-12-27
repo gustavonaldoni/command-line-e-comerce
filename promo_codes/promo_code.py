@@ -1,4 +1,4 @@
-class PromoCode:
+class PromotionalCode:
     
     def __init__(self, content, discount_percentage):
         self.content = content
