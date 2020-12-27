@@ -1,7 +1,7 @@
 import string
 import random
 
-class PromoCodeGenerator:
+class PromotionalCodeGenerator:
     
     all_upper = string.ascii_uppercase
     all_digits = string.digits
@@ -31,7 +31,7 @@ class PromoCodeGenerator:
 
 
 if __name__ == '__main__':
-    gen = PromoCodeGenerator()
+    gen = PromotionalCodeGenerator()
 
     print(gen.generate_code(5), f'{gen.generate_discount_percentage((5, 30))}%')
     
