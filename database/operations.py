@@ -27,7 +27,7 @@ class ProductOperator(MySQLConnector):
         self.mydb.commit()
 
     def select_all_products_from_database(self):
-        query = 'SELECT * FROM products'
+        query = 'SELECT name, price FROM products'
 
         self.mycursor.execute(query)
 
