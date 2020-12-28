@@ -35,3 +35,11 @@ class ProductOperator(MySQLConnector):
 
         return result
 
+class AccountHandler(MySQLConnector):
+  
+    def add_user(self,first_name,last_name,email, password):
+        query = 'INSERT INTO users(first_name,last_name,email,password) VALUES(%s,%s,%s,%s)'
+        values = (first_name,last_name,email,password)
+        
+        self.mycursor.execute(query,values)
+        self.mydb.commit()
