@@ -37,8 +37,9 @@ class ProductOperator(MySQLConnector):
 
 class AccountHandler(MySQLConnector):
   
-    def add_user(self,first_name,last_name,email, password):
+    def save_user_on_database(self,first_name,last_name,email, password):
         query = 'INSERT INTO users(first_name,last_name,email,password) VALUES(%s,%s,%s,%s)'
-        values = (first_name,last_name,email,password)
-        self.mycursor.execute(query,values)
+        values = (first_name, last_name, email, password)
+
+        self.mycursor.execute(query, values)
         self.mydb.commit()
