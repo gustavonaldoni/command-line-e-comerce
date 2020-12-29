@@ -1,4 +1,5 @@
 from database.connection import MySQLConnector
+import bcrypt
 
 
 class PromotionalCodeOperator(MySQLConnector):
@@ -37,9 +38,35 @@ class ProductOperator(MySQLConnector):
 
 class AccountHandler(MySQLConnector):
   
-    def save_user_on_database(self,first_name,last_name,email, password):
-        query = 'INSERT INTO users(first_name,last_name,email,password) VALUES(%s,%s,%s,%s)'
-        values = (first_name, last_name, email, password)
+    def save_user_on_database(self, first_name, last_name, email, password, salt):
+        query = 'INSERT INTO users(first_name,last_name,email,password, salt) VALUES(%s,%s,%s,%s,%s)'
+        values = (first_name, last_name, email, password, salt)
 
         self.mycursor.execute(query, values)
         self.mydb.commit()
+
+    def select_all_user_information(self, user_id):
+        query = 'SELECT * FROM users WHERE id = %s'
+        values = (user_id, )
+
+        self.mycursor.execute(query, values)
+
+        result = self.mycursor.fetchall()
+
+        return result
+
+class RegisterOperator(AccountHandler):
+
+    def register_user_on_database(self, first_name, last_name, email, password):
+        first_name = first_name.title()
+        last_name = last_name.title()
+
+        password = password.encode()
+        salt = bcrypt.gensalt()
+
+        hashed_password = bcrypt.hashpw(password, salt)
+
+        self.save_user_on_database(first_name, last_name, email, hashed_password, salt)
+
+class LoginOperator(MySQLConnector):
+    pass
