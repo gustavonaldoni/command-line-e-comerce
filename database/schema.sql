@@ -54,3 +54,6 @@ CREATE TABLE IF NOT EXISTS promotional_codes(
     discount_percentage INT NOT NULL,
     status VARCHAR(15) DEFAULT 'unused'
 );
+
+ALTER TABLE users
+MODIFY COLUMN email VARCHAR(50) NOT NULL UNIQUE;
