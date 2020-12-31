@@ -2,7 +2,7 @@ from interface.initial_messages import show_welcome_message, show_welcome_option
 from interface.register_messages import ask_user_for_register, show_success_registration_message, show_invalid_email_message, show_invalid_password_message, show_error_registration_message
 from interface.products_messages import show_all_products
 from interface.terminal_cleaner import clean_terminal
-from interface.login_messages import ask_user_to_login, show_invalid_email_message
+from interface.login_messages import ask_user_to_login, show_invalid_email_message, show_success_login_message
 from database.operations import RegisterOperator, AccountHandler, LoginOperator
 from validators.register import RegisterValidator
 from general_classes.user import User
@@ -75,6 +75,8 @@ def main():
                     user_creation_datetime = all_account_information[5]
 
                     user = User(user_id, user_first_name, user_last_name, user_email, user_creation_datetime)
+
+                    show_success_login_message(user.first_name, user.last_name)
 
                 else:
                     print('INVALID PASSWORD')
