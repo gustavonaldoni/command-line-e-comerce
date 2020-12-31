@@ -69,4 +69,33 @@ class RegisterOperator(AccountHandler):
         self.save_user_on_database(first_name, last_name, email, hashed_password, salt)
 
 class LoginOperator(MySQLConnector):
-    pass
+    
+    def check_if_email_exists(self, user_email):
+        query = 'SELECT email FROM users WHERE email = %s'
+        values = (user_email, )
+
+        self.mycursor.execute(query, values)
+
+        result = self.mycursor.fetchone()
+
+        if result is None:
+            return False
+
+        elif isinstance(result, tuple):
+            return True
+
+    def select_id_and_hashed_password_by_email(self, user_email):
+        query = 'SELECT id, password FROM users WHERE email = %s'
+        values = (user_email, )
+
+        self.mycursor.execute(query, values)
+
+        result = self.mycursor.fetchall()
+
+        return result
+
+    def check_password(self, user_password, hashed_password):
+        if bcrypt.checkpw(user_password.encode(), hashed_password.encode()):
+            return True
+
+        return False
